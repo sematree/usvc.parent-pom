@@ -1,0 +1,138 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.sematree.usvc</groupId>
+  <artifactId>parent-pom</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Parent pom for all microservice projects  </name>
+  <url>http://www.sematree.com</url>
+  <description>POM parent to set up the common elements - like mvn repos,   </description>
+  <packaging>pom</packaging>
+
+
+  <developers>
+    <developer>
+      <name>Mike Hills</name>
+      <email>mike.hills@sematree.com</email>
+      <id>mike.hills</id>
+      <roles>
+	<role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>adam.devoe</name>
+      <email>adam.devoe@sematree.com</email>
+      <id>adam.devoe</id>
+      <roles>
+	<role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:https://github.com/sematree/usvc.parent-pom.git</connection>
+    <developerConnection>scm:git:https://github.com/sematree/usvc.parent-pom.git</developerConnection>
+  </scm>
+
+  <reporting>
+    <plugins>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-javadoc-plugin</artifactId>
+	<configuration>
+	  <maxmemory>1024m</maxmemory>
+	  <aggregate>false</aggregate>
+	</configuration>
+      </plugin>
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+
+      <!-- Must use at least 3.0.4 maven see : http://maven.apache.org/maven-release/maven-release-plugin/ -->
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-release-plugin</artifactId>
+	<version>2.5.3</version>
+	<configuration>
+	  <autoVersionSubmodules>true</autoVersionSubmodules>
+	  <preparationGoals>clean install</preparationGoals>
+	  <goals>deploy</goals>
+	</configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  
+  <build>
+    <extensions>
+      <!-- For publishing the artifacts to mvn repo -->
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh</artifactId>
+        <version>2.4</version>
+      </extension>
+    </extensions>
+    
+  </build>
+
+  <repositories>
+    <repository>
+      <id>SemaTree Repository</id>
+      <url>http://m2-repo.sematree.io/repository</url>
+      <snapshots>
+	<enabled>false</enabled>
+      </snapshots>
+      <releases>
+	<enabled>true</enabled>
+      </releases>
+    </repository>
+    <repository>
+      <id>SemaTree Repository Snapshot</id>
+      <url>http://m2-repo.sematree.io/snapshot-repository</url>
+      <snapshots>
+	<enabled>true</enabled>
+      </snapshots>
+      <releases>
+	<enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
+
+  <!--
+      <pluginRepositories>
+	<pluginRepository>
+	  <id>Maven Snapshots</id>
+	  <url>http://snapshots.maven.codehaus.org/maven2/</url>
+	  <snapshots>
+	    <enabled>true</enabled>
+	  </snapshots>
+	  <releases>
+	    <enabled>false</enabled>
+	  </releases>
+	</pluginRepository>
+      </pluginRepositories>
+      -->
+
+  <distributionManagement>
+    <repository>
+      <id>sematree-repo</id>
+      <name>SemaTree Main  Repository</name>
+      <url>scp://sematree.io/home/apache/www/m2/repository</url>
+    </repository>
+    <snapshotRepository>
+      <id>sematree-snapshots</id>
+      <name>Sematree Development Repository</name>
+      <url>scp://sematree.io/home/apache/www/m2/snapshot-repository</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
+
+
+  <properties>
+    <some.property>some.value</some.property>
+  </properties>
+
+</project>
+
